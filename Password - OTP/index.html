@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PasswOrd with OTP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    input[type="text"] {
+        width: 40px;
+    }
+</style>
+
+<body class="p-4 bg-light">
+
+    <div class="container col-md-6 border border-primary rounded p-4 shadow bg-white">
+        <h2 class="mb-4">🔐 Password Generator</h2>
+
+        <div class="mb-3">
+            <label for="length" class="form-label">Password Length:</label>
+            <input type="number" id="length" class="form-control border border-secondary rounded" min="4" max="20"
+                value="8">
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="includeNumbers">
+            <label class="form-check-label" for="includeNumbers">Include Numbers</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="includeUppercase">
+            <label class="form-check-label" for="includeUppercase">Include Uppercase</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="includeSpecial">
+            <label class="form-check-label" for="includeSpecial">Include Special Characters</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="excludeAmbiguous">
+            <label class="form-check-label" for="excludeAmbiguous">
+                Exclude ambiguous characters (e.g. l, 1, I, O, 0)
+            </label>
+        </div>
+
+        <button class="btn btn-primary mt-3" onclick="generatePassword()">Generate Password</button>
+
+        <div class="mt-3">
+            <label class="form-label">Generated Password:</label>
+            <input type="password" class="form-control border border-success rounded" id="result" readonly>
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="togglePassword"
+                    onclick="togglePasswordVisibility()">
+                <label class="form-check-label">Show Password</label>
+            </div>
+        </div>
+
+        <div class="progress mt-3">
+            <div class="progress-bar" id="strengthBar" role="progressbar"></div>
+        </div>
+        <p id="strengthText" class="mt-1 fw-bold"></p>
+        <button class="btn btn-outline-secondary mt-2" onclick="copyPassword()">Copy</button>
+    </div>
+
+    <div class="container mt-5 border border-success rounded p-5 bg-white shadow w-50">
+        <h4 class="mb-3 text-center">📱OTP Verification</h4>
+        <button onclick="generateOTP()" class="btn btn-primary mt-3">Generate OTP</button>
+        <div id="showOTP" class="text-center text-primary mt-2 fw-bold"></div>
+
+        <div class="container w-50 bg-secondary p-5 rounded shadow text-white mt-3">
+            <div class="row mb-3">
+                <div class="col">
+                    <input type="text" class="form-control" maxlength="1" id="digit1" required
+                        oninput="goToNext(this, 'digit2')" />
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" maxlength="1" id="digit2" required
+                        oninput="goToNext(this, 'digit3')" />
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" maxlength="1" id="digit3" required
+                        oninput="goToNext(this, 'digit4')" />
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" maxlength="1" id="digit4" required
+                        oninput="goToNext(this, 'submitBTN')" />
+                </div>
+            </div>
+            <button id="submitBTN" class="btn btn-light mt-4">Submit</button>
+            <div class="alert alert-success mt-3 d-none" id="successMsg">Form Submitted Successfully!</div>
+            <div class="alert alert-danger mt-3 d-none" id="errorMsg">You Entered Wrong OTP!</div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
